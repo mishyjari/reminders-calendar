@@ -1,5 +1,7 @@
 import React from 'react';
 import { useToggle } from '../hooks/useToggle.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectReminder } from '../actions/index.js';
 import ReminderPreview from '../components/ReminderPreview.js';
 import ReminderForm from '../components/ReminderForm.js';
 import moment from 'moment';
@@ -9,6 +11,15 @@ import '../stylesheets/calendar.css';
 const Day = ({ calendar, day, reminders }) => {
 
     const [ formHidden, setFormHidden ] = useToggle();
+    const dispatch = useDispatch();
+    const selectedReminder = useSelector(state => state.reminders.selectedReminder)
+
+    const toggleEditForm = reminder => {
+        setFormHidden();
+        dispatch(selectReminder(reminder))
+    }
+
+    //console.log(selectedReminder)    
 
     // Pass this down to the ReminderForm Component so that we habe access to useToggle on submit
     const handleNewReminder = e => setFormHidden(e)
@@ -18,16 +29,7 @@ const Day = ({ calendar, day, reminders }) => {
             className={day.month() === calendar.month() ? 'day-container' : 'day-container-secondary'}
         >
             <h3 className='date-number'>{day.date()}</h3>
-            <ul className='reminders-list' id={`reminders-list-${day.format('x')}`}>
-                {
-                    reminders
-                        .filter(reminder => reminder.date.isSame(day, 'day'))
-                        .map(reminder => <ReminderPreview {...reminder} />)
-                }
-            </ul>
-            <div id={`new-reminder-form-container-${day.format('x')}`}>
-                { formHidden ? null : <ReminderForm day={day} handleNewReminder={handleNewReminder} /> }
-            </div>
+            
             <button
                 id={`new-reminder-button-${day.format('x')}`}
                 className='new-reminder-button'
@@ -35,6 +37,19 @@ const Day = ({ calendar, day, reminders }) => {
                 >
                     { formHidden ? 'NEW' : 'CANCEL' }
             </button>
+
+            <div id={`new-reminder-form-container-${day.format('x')}`}>
+                { formHidden ? null : <ReminderForm day={day} handleNewReminder={handleNewReminder} reminder={selectedReminder} /> }
+            </div>
+            
+            <ul className='reminders-list' id={`reminders-list-${day.format('x')}`}>
+                {
+                    reminders
+                        .filter(reminder => reminder.date.isSame(day, 'day'))
+                        .sort((a,b) => a.date.unix() > b.date.unix() ? 1 : -1)
+                        .map(reminder => <ReminderPreview {...reminder} handleClick={() => toggleEditForm(reminder)} />)
+                }
+            </ul>
         </div>
     );
 }

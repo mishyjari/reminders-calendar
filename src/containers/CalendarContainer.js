@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { showNextMonth, showPrevMonth } from '../actions/index.js';
-import { getDayReminders } from '../utils/reminders.js';
 import DayContainer from './DayContainer.js';
 import moment from 'moment';
 
@@ -9,9 +8,8 @@ const CalendarContainer = () => {
 
     const calendar = useSelector(state => state.calendar.time)
     const reminders = useSelector(state => state.reminders.reminders)
-
     const dispatch = useDispatch();
-    
+
     // Function to return an array of moment.js instances representing days in the current month
     // Prepend / Append as necessary to square off caledar Sunday - Saturday
     const getDaysInCalendar = () => {
