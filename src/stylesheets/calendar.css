@@ -1,0 +1,50 @@
+div {
+    border: 1px solid black;
+}
+
+.calendar {
+    width: 90vw;
+    margin: auto;
+}
+
+.calendar-body {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+.day-container {
+    width: 200px;
+    height: 200px; 
+    flex-basis: 14%;   
+}
+
+.day-container-secondary {
+    color: grey;
+    background-color: #ddd;
+    width: 200px;
+    height: 200px; 
+    flex-basis: 14%;   
+}
+
+
+.weekdays {
+    display: flex;
+    flex-direction: row;
+}
+
+.weekday-heading {
+    width: 200px;
+    height: 50px;
+    flex-basis: 14%
+}
+
+.date-number {
+    padding: 10px;
+    margin: 5px;
+}
+
+.new-reminder-button {
+    width: 90%;
+    align-self: flex-end;
+}
