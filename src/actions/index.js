@@ -14,15 +14,17 @@ export const showCurrentMonth = () => ({ type: CURRENT_MONTH });
 
 // Action creators for Reminders
 export const createReminder = reminder => {
-        console.log('action called', reminder)       
         return {
                 type: CREATE_REMINDER,
-                payload: reminder
+                payload: {
+                        ...reminder,
+                        id: `reminder-${new Date().getTime()}`
+                }
         }
 }
 
-export const deleteReminder = reminder => ({
+export const deleteReminder = id => ({
         type: DELETE_REMINDER,
-        payload: reminder
+        payload: id
 });
 

@@ -1,72 +1,65 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { showNextMonth, showPrevMonth, showCurrentMonth } from '../actions/index.js';
-import Calendar from '../components/Calendar.js';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { showNextMonth, showPrevMonth } from '../actions/index.js';
+import { getDayReminders } from '../utils/reminders.js';
+import DayContainer from './DayContainer.js';
 import moment from 'moment';
 
-class CalendarContainer extends Component {
+const CalendarContainer = () => {
 
-    componentDidMount() {
-        console.log('mount')
+    const calendar = useSelector(state => state.calendar.time)
+    const reminders = useSelector(state => state.reminders.reminders)
+
+    const dispatch = useDispatch();
+    
+    // Function to return an array of moment.js instances representing days in the current month
+    // Prepend / Append as necessary to square off caledar Sunday - Saturday
+    const getDaysInCalendar = () => {
+
+
+        const daysInCalendar = [];
+
+        // Start by creating an instance for each day in the month using a loop against moment's daysInMonth() method
+        for ( let dayOfMonth = 1; dayOfMonth <= calendar.daysInMonth(); dayOfMonth++ ) {
+            daysInCalendar.push(
+                moment( calendar ).set( 'date', dayOfMonth ) )};
+
+        // Now prepend days to the array until the first element day() returns 0 (Sunday)
+        while ( daysInCalendar[0].day() > 0 ) {
+            daysInCalendar.unshift(
+                moment( daysInCalendar[0] ).subtract( 1, 'day' ) )};
+
+        // Finally, append the array until the final element day() returns 7 (Saturday)
+        while ( daysInCalendar[daysInCalendar.length-1].day() < 6 ) {
+            daysInCalendar.push(
+                moment( daysInCalendar[daysInCalendar.length-1] ).add( 1, 'day' ) )};
+
+        return daysInCalendar;
     }
 
-    componentDidUpdate() {
-        console.log('update')
-    }
-
-    getDaysInMonth() {
-        const time = this.props.time;
-        let daysInMonth = [];
-
-        // Using Moment's daysInMonth() method, create an array of date objects for each day in month prop
-        for ( let day = 1; day <= time.daysInMonth(); day++ ) {            
-            daysInMonth.push(
-                moment(time) // Creates new moment() instance
-                .set('date', day) // Set date to the day relative to loop
-            )
-        }
-
-        // Prepend and append days as necessary to square off the calendar
-        while ( daysInMonth[0].day() > 0 ) {
-            daysInMonth.unshift(
-                moment(
-                    daysInMonth[0]
-                ).subtract(1,'day')
-            )
-        }
-
-        while ( daysInMonth[daysInMonth.length-1].day() < 6 ) {
-            daysInMonth.push(
-                moment(
-                    daysInMonth[daysInMonth.length-1]
-                ).add(1,'day')
-            )
-        }
-
-        return daysInMonth;
-    }
-
-    render() { 
-        return (
-            <Calendar
-                { ...this.props }
-                days={() => this.getDaysInMonth()}
-            />
-        );
-    }
+    return (
+        <div className='calendar'>
+            <div id='calendar-title'>
+                <button onClick={() => dispatch(showPrevMonth())}>Prev</button>
+                <button onClick={() => dispatch(showNextMonth())}>Next</button>
+                <h2>{ calendar.format('MMMM') } { calendar.format("YYYY") }</h2>
+            </div>
+            <div className='weekdays'>
+                <div className='weekday-heading'>Sunday</div>
+                <div className='weekday-heading'>Monday</div>
+                <div className='weekday-heading'>Tuesday</div>
+                <div className='weekday-heading'>Wednesday</div>
+                <div className='weekday-heading'>Thursday</div>
+                <div className='weekday-heading'>Friday</div>
+                <div className='weekday-heading'>Saturday</div>
+            </div>
+            <div className='calendar-body'>
+                {
+                    getDaysInCalendar().map(day => <DayContainer key={day.format('x')} day={day} calendar={calendar} reminders={reminders} />)
+                }
+            </div>
+        </div>  
+    );
 }
-
-const mapStateToProps = state => {
-    return state.calendar;
-}
-
-const mapDispatchToProps = {
-    showCurrentMonth,
-    showNextMonth,
-    showPrevMonth,
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CalendarContainer);
+ 
+export default CalendarContainer;

@@ -1,40 +1,42 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createReminder, deleteReminder } from '../actions/index.js';
-import Day from '../components/Day.js';
+import React from 'react';
+import { useToggle } from '../hooks/useToggle.js';
+import ReminderPreview from '../components/ReminderPreview.js';
+import ReminderForm from '../components/ReminderForm.js';
 import moment from 'moment';
-import '../stylesheets/calendar.css'
 
-class DayContainer extends Component {
+import '../stylesheets/calendar.css';
 
-    filterReminders() {
-        return this.props.reminders.reminders
-            .filter(reminder => {
-                console.log(reminder)
-                return reminder.time.isBetween(
-                    this.props.day.startOf('day'),
-                    this.props.day.endOf('day')
-                )
-            })
-    }
+const Day = ({ calendar, day, reminders }) => {
 
-    render() { 
+    const [ formHidden, setFormHidden ] = useToggle();
 
-        return <Day {...this.props} reminders={this.filterReminders} />;
-    }
+    // Pass this down to the ReminderForm Component so that we habe access to useToggle on submit
+    const handleNewReminder = e => setFormHidden(e)
+
+    return (
+        <div
+            className={day.month() === calendar.month() ? 'day-container' : 'day-container-secondary'}
+        >
+            <h3 className='date-number'>{day.date()}</h3>
+            <ul className='reminders-list' id={`reminders-list-${day.format('x')}`}>
+                {
+                    reminders
+                        .filter(reminder => reminder.date.isSame(day, 'day'))
+                        .map(reminder => <ReminderPreview {...reminder} />)
+                }
+            </ul>
+            <div id={`new-reminder-form-container-${day.format('x')}`}>
+                { formHidden ? null : <ReminderForm day={day} handleNewReminder={handleNewReminder} /> }
+            </div>
+            <button
+                id={`new-reminder-button-${day.format('x')}`}
+                className='new-reminder-button'
+                onClick={setFormHidden}
+                >
+                    { formHidden ? 'NEW' : 'CANCEL' }
+            </button>
+        </div>
+    );
 }
-
-const mapStateToProps = (state, ownProps) => {
-    return { reminders: state.reminders }
-    //return state.reminders.filter(reminder => reminder.time.isBetween(ownProps.day.startOf('day'),ownProps.day.endOf('day')) );
-};
-
-const matchDispatchToProps = {
-    createReminder,
-    deleteReminder
-};
-
-export default connect(
-    mapStateToProps,
-    matchDispatchToProps
-)(DayContainer);
+ 
+export default Day;

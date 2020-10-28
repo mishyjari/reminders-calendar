@@ -8,13 +8,27 @@ const initialState = {
 export const reminderReducer = (state=initialState, action) => {
     switch( action.type ) {
         case CREATE_REMINDER:
-            console.log(state, action)
             return {
                 ...state,
                 reminders: [...state.reminders, action.payload]
             }
         case DELETE_REMINDER:
-            return state 
+            // Find the index of target by id
+            const targetIdx = state.reminders.findIndex(reminder => {
+                return reminder.id === action.payload
+            });
+ 
+            // Just return state if this reminder is not found
+            if ( targetIdx === -1 ) { return state }
+
+            // Create a copy of reminders state array from store and splice
+            const newState = [...state.reminders]
+            newState.splice(targetIdx,1)
+
+            return {
+                ...state,
+                reminders: newState
+            }
         default:
             return state
     }

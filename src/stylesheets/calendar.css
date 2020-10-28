@@ -48,3 +48,13 @@ div {
     width: 90%;
     align-self: flex-end;
 }
+
+.remaining-chars {
+    padding: 0;
+    margin: 0;
+}
+
+.reminders-list > li:hover {
+    cursor: pointer;
+    font-weight: bold;
+}
