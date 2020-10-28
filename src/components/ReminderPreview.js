@@ -1,9 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { deleteReminder } from '../actions/index.js';
 
 const ReminderPreview = ({ text, color, date, id, handleClick }) => {
-    const dispatch = useDispatch();
+
     return (
         <li
             key={id}

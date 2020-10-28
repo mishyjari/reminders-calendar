@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createReminder, updateReminder, deleteReminder } from '../actions/index.js';
+import { createReminder, updateReminder, deleteReminder } from '../actions/actions.js';
 import moment from 'moment';
 
 class ReminderForm extends Component {
@@ -12,9 +12,11 @@ class ReminderForm extends Component {
     }
 
     componentDidMount() {
+        // If the date of the selectedReminder from store matches the date of this form's parent, set state to that reminder
         if ( this.props.reminder && this.props.reminder.date.isSame(this.props.day, 'day')) {
             this.setState(this.props.reminder)
         }
+        // Give focus to the text input
         document.getElementById(`text-${this.state.date.unix()}=${this.state.id}`).focus()
     }
 
@@ -39,7 +41,8 @@ class ReminderForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-
+        // If state.id !== null, form was rendered with an existing reminder
+        // Call Update action
         if ( this.state.id ) {
             this.props.updateReminder(this.state)
             this.setState({ 
@@ -51,6 +54,7 @@ class ReminderForm extends Component {
                 this.props.handleNewReminder()
             })
         }
+        // Otherwise it is a new reminder, call Create
         else {
             this.props.createReminder(this.state)
             this.setState({ 
@@ -72,6 +76,7 @@ class ReminderForm extends Component {
                 id={`new-reminder-form-${day.format('x')}`}
                 onSubmit={this.handleSubmit}
             >
+                {/* { Only render the delete button if we are editting an existing remidner } */}
                 {
                     this.state.id
                     ?  
@@ -79,6 +84,8 @@ class ReminderForm extends Component {
                     :
                     null
                 }
+
+                {/* Input field for text property */}
                 <input 
                     id={`text-${this.state.date.unix()}=${this.state.id}`}
                     type='text' 
@@ -89,10 +96,15 @@ class ReminderForm extends Component {
                     onChange={this.handleChangeText}
                     autoComplete='off'
                 />
-                <h6 className='remaining-chars'>
+
+                {/* Remaining Characters Display */}
+                <h5 className='remaining-chars' 
+                    style={ this.state.text.length === 30 ? {color: 'red'} : null }
+                >
                     {30 - this.state.text.length}
-                </h6>
-                <button type='submit'>Submit</button>
+                </h5>
+                
+                {/* Date and time inputs */}
                 <input 
                     type='time'
                     value={this.state.date.format("HH:mm")}
@@ -103,13 +115,17 @@ class ReminderForm extends Component {
                     value={this.state.date.format("YYYY-MM-DD")}
                     onChange={this.handleChangeDate}
                 />
-                <form onChange={this.handleChangeColor}>
-                    <input type='radio' name='color-select' value='black' checked={this.state.color === 'black'} />Black
-                    <input type='radio' name='color-select' value='red' checked={this.state.color === 'red'}/>Red
-                    <input type='radio' name='color-select' value='green' checked={this.state.color === 'green'}/>Green
-                    <input type='radio' name='color-select' value='blue' checked={this.state.color === 'blue'}/>Blue
-                    <input type='radio' name='color-select' value='orange' checked={this.state.color === 'orange'} />Orange
-                </form>
+
+                {/* Radio form for selecting display color */}
+                <div>
+                    <input type='radio' name='color-select' value='black'  onChange={this.handleChangeColor} checked={this.state.color === 'black'} />Black
+                    <input type='radio' name='color-select' value='red' onChange={this.handleChangeColor} checked={this.state.color === 'red'}/>Red
+                    <input type='radio' name='color-select' value='green' onChange={this.handleChangeColor} checked={this.state.color === 'green'}/>Green
+                    <input type='radio' name='color-select' value='blue' onChange={this.handleChangeColor} checked={this.state.color === 'blue'}/>Blue
+                    <input type='radio' name='color-select' value='orange' onChange={this.handleChangeColor} checked={this.state.color === 'orange'} />Orange
+                </div>
+
+                <button type='submit'>Submit</button>
             </form>
         );
     }

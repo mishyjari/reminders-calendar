@@ -38,5 +38,5 @@ export const selectReminder = id => ({
 export const updateReminder = data => ({
         type: UPDATE_REMINDER,
         payload: data
-})
+});
 
