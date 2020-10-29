@@ -6,7 +6,8 @@ import {
     CREATE_REMINDER,
     DELETE_REMINDER,
     SELECT_REMINDER,
-    UPDATE_REMINDER
+    UPDATE_REMINDER,
+    UNSELECT_REMINDER
 } from '../actions/actions.js';
 
 // Calendar Reducers
@@ -78,6 +79,12 @@ const reminderReducer = (state=initialReminderState, action) => {
             return {
                 ...state,
                 selectedReminder: state.reminders.find(reminder => reminder.id === action.payload.id)
+            }
+        
+        case UNSELECT_REMINDER:
+            return {
+                ...state,
+                selectedReminder: null
             }
 
         case UPDATE_REMINDER:

@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { showNextMonth, showPrevMonth } from '../actions/actions.js';
 import DayContainer from './Day.js';
+import '../stylesheets/calendar.css';
 import moment from 'moment';
 
 const CalendarContainer = () => {
@@ -37,19 +38,20 @@ const CalendarContainer = () => {
 
     return (
         <div className='calendar'>
-            <div id='calendar-title'>
-                <button onClick={() => dispatch(showPrevMonth())}>Prev</button>
-                <button onClick={() => dispatch(showNextMonth())}>Next</button>
+            <div className='calendar-title'>
+                <button className='month-toggle' onClick={() => dispatch(showPrevMonth())}>{`<`}</button>
                 <h2>{ calendar.format('MMMM') } { calendar.format("YYYY") }</h2>
+                <button className='month-toggle' onClick={() => dispatch(showNextMonth())}>{`>`}</button>
             </div>
+            
             <div className='weekdays'>
-                <div className='weekday-heading'>Sunday</div>
-                <div className='weekday-heading'>Monday</div>
-                <div className='weekday-heading'>Tuesday</div>
-                <div className='weekday-heading'>Wednesday</div>
-                <div className='weekday-heading'>Thursday</div>
-                <div className='weekday-heading'>Friday</div>
-                <div className='weekday-heading'>Saturday</div>
+                <div className='weekday-heading'><h4>Sunday</h4></div>
+                <div className='weekday-heading'><h4>Monday</h4></div>
+                <div className='weekday-heading'><h4>Tuesday</h4></div>
+                <div className='weekday-heading'><h4>Wednesday</h4></div>
+                <div className='weekday-heading'><h4>Thursday</h4></div>
+                <div className='weekday-heading'><h4>Friday</h4></div>
+                <div className='weekday-heading'><h4>Saturday</h4></div>
             </div>
             <div className='calendar-body'>
                 {

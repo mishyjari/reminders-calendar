@@ -1,7 +1,7 @@
 import React from 'react';
 import { useToggle } from '../hooks/useToggle.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectReminder } from '../actions/actions.js';
+import { selectReminder, unselectReminder } from '../actions/actions.js';
 import ReminderPreview from './ReminderPreview.js';
 import ReminderForm from './ReminderForm.js';
 
@@ -15,10 +15,8 @@ const Day = ({ calendar, day, reminders }) => {
 
     const toggleEditForm = reminder => {
         setFormHidden();
-        dispatch(selectReminder(reminder))
+        formHidden ? dispatch(selectReminder(reminder)) : dispatch(unselectReminder())
     }
-
-    //console.log(selectedReminder)    
 
     // Pass this down to the ReminderForm Component so that we habe access to useToggle on submit
     const handleNewReminder = e => setFormHidden(e)
@@ -27,17 +25,20 @@ const Day = ({ calendar, day, reminders }) => {
         <div
             className={day.month() === calendar.month() ? 'day-container' : 'day-container-secondary'}
         >
-            <h3 className='date-number'>{day.date()}</h3>
+            <div className='day-container-heading'>
+                <h3 className='date-number'>{day.date()}</h3>
+                
+                <button
+                    id={`new-reminder-button-${day.format('x')}`}
+                    className='new-reminder-button'
+                    onClick={() => toggleEditForm(selectReminder)}
+                    >
+                        { formHidden ? '+' : '×' }
+                </button>
+            </div>
             
-            <button
-                id={`new-reminder-button-${day.format('x')}`}
-                className='new-reminder-button'
-                onClick={setFormHidden}
-                >
-                    { formHidden ? 'ADD' : 'CANCEL' }
-            </button>
 
-            <div id={`new-reminder-form-container-${day.format('x')}`}>
+            <div className='new-reminder-form-container' id={`new-reminder-form-container-${day.format('x')}`} hidden={formHidden ? 'hidden' : false}>
                 { formHidden ? null : <ReminderForm day={day} handleNewReminder={handleNewReminder} reminder={selectedReminder} /> }
             </div>
             

@@ -8,6 +8,7 @@ export const CREATE_REMINDER = 'CREATE_REMINDER';
 export const DELETE_REMINDER = 'DELETE_REMINDER';
 export const SELECT_REMINDER = 'SELECT_REMINDER';
 export const UPDATE_REMINDER = 'UPDATE_REMINDER';
+export const UNSELECT_REMINDER = 'UNSELECT_REMINDER';
 
 // Action creators for Calendar
 export const showNextMonth = () => ({ type: NEXT_MONTH });
@@ -39,4 +40,8 @@ export const updateReminder = data => ({
         type: UPDATE_REMINDER,
         payload: data
 });
+
+export const unselectReminder = () => ({
+        type: UNSELECT_REMINDER
+})
 
