@@ -1,11 +1,17 @@
 @import './mixins';
 
 .day-container {
-    @include dayContainer()
+    @include dayContainer();
 }
 .day-container-secondary {
     @extend .day-container;
     @include dayContainer(false)
+}
+
+.day-today {
+    @extend .day-container;
+    @include dayContainer();
+    border: 3px solid green;
 }
 
 .date-number {
@@ -20,6 +26,7 @@
 }
 
 .day-container-heading {
+    
     display: flex;
     justify-content: space-between;
 

@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Reminder Calendar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple calendar view for managing reminders
 
-## Available Scripts
+### Usage
 
-In the project directory, you can run:
+- The calendar will load to the current month. Months can be toggled using the arrows next to the month name
+- Clicking the '+' in a day container will open a form for creating a new reminder. This form can be escaped one of four ways: (a) clicking the same button the form was opened with, (b) using the red 'x' in the top left of the form, (c) pressing the 'escape' key, or (d) using the submit/save/delete button.
+- Reminder text is required and maxed at 30 characters
+- The color selector will choose the color the reminder will be rendered in
+- User can choose the time to display and the date the reminder will appear in (default is current time on the date that was clicked)
+- Once a reminder is rendered, clicking it will open up the form to edit or delete the reminder. It can also be re-assigned to a different date here.
+- Reminder overflow is accessed by scrolling within the day container
 
-### `npm start`
+### Architecture and Features
+#### React application with Redux state management
+- Calendar component renders Title and month toggle buttons
+##### Calendar
+- Selected Month held in store, defaults to current month. Calendar component accesses the selected month from state, and creates an array of Moment objects for each day within that month. It then prepends and appends that array so that the month is squared off (Sunday-Saturday)
+- Renders a Day component for each element within that array of days
+##### Day
+- Day component sets className based on whether the day is within the current month and if it is the current day, to allow for easy styling
+- Heading renders the date number and the 'new reminder' button.
+- Makes use of a custom hook to toggle the New Reminder form
+- Creates a UL element for displaying reminders. Will access all reminders in store and render a ReminderPreview component for any mathing the selected date. Sorted by date using JS' sort method
+- Overflow will result in scrolling withing the Day component (todo: ability to expand Day component or have a 'show all' component of sorts)
+##### ReminderPreview
+- Each is an LI element for a reminder
+- Narrow windows (e.g., mobile) will render only the time, details can be viewed by opening the edit form (todo: make a view reminder element)
+- Clicking on the preview will allow for editting or deleting. Clicking will store 'selected reminder' in Redux store and render the form with its data.
+##### ReminderForm
+- Form is controlled using local state in a class component
+- If a reminder id was passed in, it will render as as an edit form, else will render as a new reminder form
+- Reminder text input is required and limited to 30 characters
+- Remaining characted count updates on change and turns red when maxed
+- Time defaults to current time, date to the date from the Day component clicked reminder can be (re)assigned to any date with this input
+- Color uses the browser's color picker, which stores the color in local state as a hex string
+- If form is an edit form, delete button will render (todo: confirmation dialogue for delete)
+- Form can be exited using the close button in the form, the new reminder button in the Day component or by pressing the escape key
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Redux actions/reducers
+- Prev/Next Month - toggles the month selected in store (called 'calendar'). Actually just a date object, but sufficient using moment's query methods
+- Create reminder - Appends a new reminder to the array of reminders in store
+- Delete reminder - Splices the remider (by id) out of reminders array in store
+- Select reminder - Reminder object used to render edit form with correct data
+- Unselect reminder - Used to clear selected reminder from store after update or form exit
+- Update reminder - Splices out reminder to be updated and replaces it with new instance

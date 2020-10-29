@@ -26,7 +26,17 @@ class ReminderForm extends Component {
             this.setState(this.props.reminder)
         }
         // Give focus to the text input
-        document.getElementById(`text-${this.state.date.unix()}=${this.state.id}`).focus()
+        document.getElementById(`text-${this.state.date.unix()}=${this.state.id}`).focus();
+
+        // Hacky fix for reminder container causing screen overflow.
+        window.scroll({top: document.getElementById('root').scrollHeight, behavior: 'smooth'})
+
+        // Close input form with escape key
+        document.addEventListener('keydown', e => {
+            if ( e.key === 'Escape' ) {
+                this.props.handleNewReminder()
+            }
+        })
     }
 
     // Input change handlers to update controlled form component

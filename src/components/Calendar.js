@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { showNextMonth, showPrevMonth } from '../actions/actions.js';
-import DayContainer from './Day.js';
+import Day from './Day.js';
 import moment from 'moment';
 
 const CalendarContainer = () => {
@@ -38,10 +38,6 @@ const CalendarContainer = () => {
 
     return (
         <div className='calendar'>
-<script>
-
-    
-</script>
             {/* Title - Month/Year and Toggle Month Buttons */}
             <div className='calendar-title'>
                 <button className='__title-month-toggle' onClick={() => dispatch(showPrevMonth())}>{`<`}</button>
@@ -63,7 +59,7 @@ const CalendarContainer = () => {
             {/* Create an instance of DayContainer for each element in the output from getDaysInCalendar() */}
             <div className='calendar-body'>
                 {
-                    getDaysInCalendar().map(day => <DayContainer key={day.format('x')} day={day} calendar={calendar} reminders={reminders} />)
+                    getDaysInCalendar().map(day => <Day key={day.format('x')} day={day} calendar={calendar} reminders={reminders} />)
                 }
             </div>
         </div>  

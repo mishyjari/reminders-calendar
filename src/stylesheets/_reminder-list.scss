@@ -1,7 +1,6 @@
 @import './mixins';
 
 .reminders-list {
-
     list-style-type: none;
     li {
         display: flex;
@@ -13,7 +12,7 @@
 
         .reminder-text {
             background: $reminder-bg;
-            font-size: 1.5rem;
+            font-size: $reminder-text-size-normal;
             border: 1px solid $border-color-dark;
             border-radius: 1rem;
             padding: .5rem;
@@ -23,6 +22,7 @@
 
             &:hover {
                 box-shadow: inset 1px 1px 2px $shadow-color-dark;
+                font-weight: weight(bold);
                 cursor: pointer;
             }
         }
@@ -37,7 +37,7 @@
             .reminder-time {
                 min-width: 4em;
                 background-color: $reminder-bg;
-                font-size: .75rem;
+                font-size: $reminder-text-size-small;
                 margin: 0;
                 padding-left: .3em;
                 padding-right: .3em;
