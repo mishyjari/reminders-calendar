@@ -1,5 +1,4 @@
 // Custom hook for toggling display of an element
-
 import { useState, useCallback } from 'react';
 
 export const useToggle = ( initialValue=true ) => {

@@ -11,15 +11,6 @@ class ReminderForm extends Component {
         id: null
     }
 
-    componentDidMount() {
-        // If the date of the selectedReminder from store matches the date of this form's parent, set state to that reminder
-        if ( this.props.reminder && this.props.reminder.date.isSame(this.props.day, 'day')) {
-            this.setState(this.props.reminder)
-        }
-        // Give focus to the text input
-        document.getElementById(`text-${this.state.date.unix()}=${this.state.id}`).focus()
-    }
-
     resetState(callback) {
         this.setState({ 
             text: '',
@@ -27,6 +18,15 @@ class ReminderForm extends Component {
             date: this.props.day || moment(),
             id: null
         }, callback)
+    }
+
+    componentDidMount() {
+        // If the date of the selectedReminder from store matches the date of this form's parent, set state to that reminder
+        if ( this.props.reminder && this.props.reminder.date.isSame(this.props.day, 'day')) {
+            this.setState(this.props.reminder)
+        }
+        // Give focus to the text input
+        document.getElementById(`text-${this.state.date.unix()}=${this.state.id}`).focus()
     }
 
     // Input change handlers to update controlled form component

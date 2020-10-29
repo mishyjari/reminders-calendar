@@ -5,8 +5,6 @@ import { selectReminder, unselectReminder } from '../actions/actions.js';
 import ReminderPreview from './ReminderPreview.js';
 import ReminderForm from './ReminderForm.js';
 
-import '../stylesheets/calendar.css';
-
 const Day = ({ calendar, day, reminders }) => {
 
     const [ formHidden, setFormHidden ] = useToggle();

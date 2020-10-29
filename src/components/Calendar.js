@@ -2,11 +2,11 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { showNextMonth, showPrevMonth } from '../actions/actions.js';
 import DayContainer from './Day.js';
-import '../stylesheets/calendar.css';
 import moment from 'moment';
 
 const CalendarContainer = () => {
 
+    // Redux Hooks
     const calendar = useSelector(state => state.calendar.time)
     const reminders = useSelector(state => state.reminders.reminders)
     const dispatch = useDispatch();
@@ -14,8 +14,6 @@ const CalendarContainer = () => {
     // Function to return an array of moment.js instances representing days in the current month
     // Prepend / Append as necessary to square off caledar Sunday - Saturday
     const getDaysInCalendar = () => {
-
-
         const daysInCalendar = [];
 
         // Start by creating an instance for each day in the month using a loop against moment's daysInMonth() method
@@ -38,12 +36,15 @@ const CalendarContainer = () => {
 
     return (
         <div className='calendar'>
+
+            {/* Title - Month/Year and Toggle Month Buttons */}
             <div className='calendar-title'>
                 <button className='month-toggle' onClick={() => dispatch(showPrevMonth())}>{`<`}</button>
                 <h2>{ calendar.format('MMMM') } { calendar.format("YYYY") }</h2>
                 <button className='month-toggle' onClick={() => dispatch(showNextMonth())}>{`>`}</button>
             </div>
             
+            {/* Headings for day names */}
             <div className='weekdays'>
                 <div className='weekday-heading'><h4>Sunday</h4></div>
                 <div className='weekday-heading'><h4>Monday</h4></div>
@@ -53,6 +54,8 @@ const CalendarContainer = () => {
                 <div className='weekday-heading'><h4>Friday</h4></div>
                 <div className='weekday-heading'><h4>Saturday</h4></div>
             </div>
+
+            {/* Create an instance of DayContainer for each element in the output from getDaysInCalendar() */}
             <div className='calendar-body'>
                 {
                     getDaysInCalendar().map(day => <DayContainer key={day.format('x')} day={day} calendar={calendar} reminders={reminders} />)

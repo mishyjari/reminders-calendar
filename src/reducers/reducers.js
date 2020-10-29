@@ -46,7 +46,6 @@ const reminderReducer = (state=initialReminderState, action) => {
     // Find target index for updating or deleting, return null if not found
     const findTargetIdxById = id => {
         const idx = state.reminders.findIndex(reminder => {
-            console.log(reminder)
             return reminder.id === id;
         });
 
@@ -63,8 +62,6 @@ const reminderReducer = (state=initialReminderState, action) => {
 
         case DELETE_REMINDER:
             const idxToDelete = findTargetIdxById(action.payload);
-            console.log(state.reminders, action.payload)
-
             if ( idxToDelete === null ) { return state }
 
             // Create a copy of reminders state array from store and splice
@@ -89,7 +86,6 @@ const reminderReducer = (state=initialReminderState, action) => {
 
         case UPDATE_REMINDER:
             const idxToUpdate = findTargetIdxById(action.payload.id);
-
             if ( idxToUpdate === null ) { return state }
 
             // Create a copy of reminders state array from store and splice
