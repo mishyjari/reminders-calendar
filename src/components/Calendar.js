@@ -6,10 +6,12 @@ import moment from 'moment';
 
 const CalendarContainer = () => {
 
+
     // Redux Hooks
     const calendar = useSelector(state => state.calendar.time)
     const reminders = useSelector(state => state.reminders.reminders)
     const dispatch = useDispatch();
+
 
     // Function to return an array of moment.js instances representing days in the current month
     // Prepend / Append as necessary to square off caledar Sunday - Saturday
@@ -36,16 +38,19 @@ const CalendarContainer = () => {
 
     return (
         <div className='calendar'>
+<script>
 
+    
+</script>
             {/* Title - Month/Year and Toggle Month Buttons */}
             <div className='calendar-title'>
-                <button className='month-toggle' onClick={() => dispatch(showPrevMonth())}>{`<`}</button>
-                <h2>{ calendar.format('MMMM') } { calendar.format("YYYY") }</h2>
-                <button className='month-toggle' onClick={() => dispatch(showNextMonth())}>{`>`}</button>
+                <button className='__title-month-toggle' onClick={() => dispatch(showPrevMonth())}>{`<`}</button>
+                <h2 className='__title-month-name'>{ calendar.format('MMMM') } { calendar.format("YYYY") }</h2>
+                <button className='__title-month-toggle' onClick={() => dispatch(showNextMonth())}>{`>`}</button>
             </div>
             
             {/* Headings for day names */}
-            <div className='weekdays'>
+            <div className='weekday-heading-container'>
                 <div className='weekday-heading'><h4>Sunday</h4></div>
                 <div className='weekday-heading'><h4>Monday</h4></div>
                 <div className='weekday-heading'><h4>Tuesday</h4></div>

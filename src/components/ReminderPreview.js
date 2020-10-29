@@ -8,10 +8,10 @@ const ReminderPreview = ({ text, color, date, id, handleClick }) => {
             className={`reminder-preview reminder-color-${color}`}
             onClick={handleClick}
         >
-            <span className='reminder-time'>
+            <span className='reminder-time' style={{ color }}>
                 {date.format("HH:mm")}
             </span>
-            <span className='reminder-text' style={{ color: color }}>
+            <span className='reminder-text' style={{ color }}>
                 {text}
             </span>
         </li>

@@ -1,0 +1,81 @@
+@import './mixins';
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: $calendar-background-color;
+    width: 95vw;
+    height: 98vh;
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px 2px 4px $border-color-light;
+    border-radius: 1rem;
+    padding: .5rem;
+    padding-bottom: 2rem;
+    box-shadow: inset 2px 2px 4px $shadow-color-dark;
+
+    @media screen and (max-width: $media-width-sm) {
+        height: 80vh;
+        width: 100vw;
+        jusitfy-self: center;
+    }
+}
+
+.calendar-title {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: .5rem;
+
+    button {
+        font-size: $btn-font-size-normal;
+        align-self: center;
+        color: $text-color-primary;
+        background-color: $btn-color-primary;
+        border: 1px solid $border-color-light;
+        width: 2em;
+        height: 60%;
+        border-radius: 2rem;
+        &:hover {
+            box-shadow: inset 2px 2px 4px $shadow-color-dark;
+            cursor: pointer;
+        }
+    }
+
+    h2 {
+        font-size: 2em;
+        margin: 1em;
+    }
+}
+
+.weekday-heading-container {
+    @include flexCenter(row);
+}
+
+.weekday-heading {
+    @include columnWidth;
+    @include columnWidth;
+    @include flexCenter(row);
+    h4 {
+        margin: .5em;
+        font-size: 1.5em;
+        @media screen and ( max-width: $media-width-sm ) {
+            font-size: .75em;
+            }   
+        }
+    }
+    
+
+.calendar-body {
+    height: 100%;
+    background-color: $calendar-background-color;
+    display: flex;
+    overflow-x: scroll;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: flex-start;
+}
+

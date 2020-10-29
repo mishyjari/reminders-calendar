@@ -78,73 +78,77 @@ class ReminderForm extends Component {
                 onSubmit={this.handleSubmit}
             >
 
+                
+
                 <h4 className='form-heading'>{this.state.id ? 'Edit Reminder' : 'Create Reminder'}</h4>
 
-                {/* Input field for text property */}
-                <input 
-                    className='reminder-text-input'
-                    id={`text-${this.state.date.unix()}=${this.state.id}`}
-                    type='text' 
-                    name='text'
-                    value={this.state.text}
-                    required={true}
-                    maxLength='30'
-                    onChange={this.handleChangeText}
-                    autoComplete='off'
-                    placeholder='Reminder Text'
-                />
+                <div className='form-row'>
+                    
+                    {/* Input field for text property */}
+                    <input 
+                        className='reminder-text-input'
+                        id={`text-${this.state.date.unix()}=${this.state.id}`}
+                        type='text' 
+                        name='text'
+                        value={this.state.text}
+                        required={true}
+                        maxLength='30'
+                        onChange={this.handleChangeText}
+                        autoComplete='off'
+                        placeholder='Reminder Text'
+                        
+                    />
 
-                {/* Remaining Characters Display */}
-                <h5 className='remaining-chars' 
-                    style={ this.state.text.length === 30 ? {color: 'red'} : null }
-                >
-                    {30 - this.state.text.length}
-                </h5>
+                   
+                </div>
                 
-                {/* Date and time inputs */}
-                <input 
-                    type='time'
-                    className='date-input'
-                    value={this.state.date.format("HH:mm")}
-                    onChange={this.handleChangeTime}
-                />
-                <input 
-                    type='date'
-                    className='date-input'
-                    value={this.state.date.format("YYYY-MM-DD")}
-                    onChange={this.handleChangeDate}
-                />
+                <div className='form-row'>
+                    {/* Input for selecting display color */}
+                    <label className='label'>
+                        <input type='color' className='color-select' onChange={this.handleChangeColor} value={this.state.color} />
+                        <h5>Color</h5>
+                    </label>
 
-                {/* Radio form for selecting display color */}
-                <div className='color-select'>
-                    <label className='input-radio color-black'>
-                        <input type='radio' className='color-radio' name='color-select' value='black'  onChange={this.handleChangeColor} checked={this.state.color === 'black'} />
-                        <span>black</span>
+                    {/* Remaining Characters Display */}
+                    <label className='label'>
+                    <h5 className='remaining-chars' 
+                        style={ this.state.text.length === 30 ? {color: 'red'} : null }
+                    >
+                        Remaining characters: {30 - this.state.text.length}
+                    </h5>
                     </label>
-                    <label className='input-radio color-red'>
-                        <input type='radio' name='color-select' value='red' onChange={this.handleChangeColor} checked={this.state.color === 'red'}/>
-                        <span>red</span>
-                    </label>
-                    <label className='input-radio color-green'>
-                        <input type='radio' name='color-select' value='green' onChange={this.handleChangeColor} checked={this.state.color === 'green'}/>
-                        <span>green</span>
-                    </label>
-                    <label className='input-radio color-blue'>
-                        <input type='radio' name='color-select' value='blue' onChange={this.handleChangeColor} checked={this.state.color === 'blue'}/>
-                        <span>blue</span>
-                    </label>
+                    
                 </div>
 
-                <button className='submit' type='submit'>{this.state.id ? 'SAVE' : 'SUBMIT'}</button>
+                <div className='form-row'>
+                    {/* Date and time inputs */}
+                    <input 
+                        type='time'
+                        className='date-input'
+                        value={this.state.date.format("HH:mm")}
+                        onChange={this.handleChangeTime}
+                    />
+                    <input 
+                        type='date'
+                        className='date-input'
+                        value={this.state.date.format("YYYY-MM-DD")}
+                        onChange={this.handleChangeDate}
+                    />
+                </div>
 
-                {/* { Only render the delete button if we are editting an existing remidner } */}
-                {
-                    this.state.id
-                    ?  
-                        <button className='delete' onClick={(() => this.props.deleteReminder(this.state.id))}>delete</button>
-                    :
-                    null
-                }
+                <div className='form-row-btn'>
+                    <button className='submit' type='submit'>{this.state.id ? 'SAVE' : 'SUBMIT'}</button>
+
+                    {/* { Only render the delete button if we are editting an existing remidner } */}
+                    {
+                        this.state.id
+                        ?  
+                            <button className='delete' onClick={(() => this.props.deleteReminder(this.state.id))}>delete</button>
+                        :
+                        null
+                    }
+                </div>
+                
             </form>
         );
     }

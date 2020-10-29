@@ -1,0 +1,109 @@
+@import './mixins';
+
+.new-reminder-form-container {
+    position: absolute;
+    z-index: 999;
+    background-color: $form-bg-color;
+    opacity: .95;
+    border-color: $border-color-dark;
+    box-shadow: 2px 2px 4px $shadow-color-dark;
+    padding: 1rem;
+    border-radius: 1rem;
+
+    @media screen and (max-width: $media-width-sm) {
+        left: 10vw;
+        right: 10vw;
+    }
+
+    .close-btn {
+    font-weight: weight(bold);
+    color: $font-color-danger;
+    &:hover {
+        cursor: pointer;
+        }
+    }
+}
+
+.form-heading {
+    font-size: 2em;
+}
+
+.form-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+}
+
+.reminder-form {
+    @include flexCenter(column);
+    align-items: center;
+}
+
+.label {
+    @include flexCenter(row);
+    align-items: center;
+
+    h5 {
+        padding-left: .5rem;
+    }
+}
+
+.reminder-text-input {
+    @extend .form-row;
+    flex-grow: 4;
+    font-size: $input-font-size-normal;
+    width: 100%;
+
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: $input-bg-color;
+
+    @media screen and (max-width: $media-width-sm) {
+        font-size: $input-font-size-small;
+    }
+}
+
+.color-select {
+    width: 2rem;
+    height: 1.5rem;
+    border: 0;
+}
+
+.date-input {
+    @extend .reminder-text-input;
+    margin: .5em;
+}
+
+.form-row-btn {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    button {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        font-size: $input-font-size-normal;
+        border-radius: .5rem;
+        padding: .5rem;
+        &:hover {
+            cursor: pointer;
+            box-shadow: inset 2px 2px 4px $shadow-color-dark;
+        }
+
+        @media screen and (max-width: $media-width-sm) {
+            font-size: $input-font-size-small;
+        }
+    }
+    .submit {
+        flex-grow: 2;
+        background-color: $btn-color-primary;
+        color: $font-color-dark;
+    }
+    .delete {
+        background-color: $font-color-danger;
+        color: $font-color-light;
+    }
+}
+

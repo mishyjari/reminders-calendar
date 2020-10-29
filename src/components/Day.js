@@ -19,6 +19,7 @@ const Day = ({ calendar, day, reminders }) => {
     // Pass this down to the ReminderForm Component so that we habe access to useToggle on submit
     const handleNewReminder = e => setFormHidden(e)
 
+
     return (
         <div
             className={day.month() === calendar.month() ? 'day-container' : 'day-container-secondary'}
@@ -37,6 +38,7 @@ const Day = ({ calendar, day, reminders }) => {
             
 
             <div className='new-reminder-form-container' id={`new-reminder-form-container-${day.format('x')}`} hidden={formHidden ? 'hidden' : false}>
+                <span className='close-btn' onClick={setFormHidden}>×</span>
                 { formHidden ? null : <ReminderForm day={day} handleNewReminder={handleNewReminder} reminder={selectedReminder} /> }
             </div>
             

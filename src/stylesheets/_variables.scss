@@ -1,0 +1,46 @@
+// Container bg colors
+$body-background-color: #ddd;
+$calendar-background-color: #fff;
+$day-background-color: rgb(238, 240, 242);
+$day-background-color-disabled: rgb(206, 206, 206);
+$reminder-bg: #fafafa;
+$form-bg-color: rgb(252, 252, 252);
+$input-bg-color: rgb(232, 231, 231);
+
+// Text colors and sizes
+$text-color-primary: #333;
+$font-color-danger: red;
+$font-color-light: #ccc;
+$font-color-dark: #333;
+$font-size-small: 1rem;
+$date-number-size-small: 1rem;
+$date-number-size-normal: 1.5rem;
+$input-font-size-normal: 1.5rem;
+$input-font-size-small: 1em;
+$font-weights: (
+    'regular': 400,
+    'medium': 500,
+    'bold': 700
+);
+
+// Borders and shadows
+$border-color-light: #999;
+$border-color-dark: #333;
+$shadow-color-dark: #333;
+$shadow-color-medium: #aaa;
+
+// Buttons
+$btn-color-primary: #fafafa;
+$btn-color-secondary: #777;
+$btn-font-size-normal: 2rem;
+$btn-font-size-small: 1.25rem;
+
+// Layout
+$media-width-sm: 1024px;
+$max-row-height-normal: 15em;
+$max-row-height-small: 6em;
+
+// Functions
+@function weight($weight-name) {
+    @return map-get($font-weights, $weight-name);
+}

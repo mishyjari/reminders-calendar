@@ -1,0 +1,52 @@
+@import './mixins';
+
+.day-container {
+    @include dayContainer()
+}
+.day-container-secondary {
+    @extend .day-container;
+    @include dayContainer(false)
+}
+
+.date-number {
+    margin: .5rem;
+    font-size: $date-number-size-normal;
+    font-weight: weight(bold);
+
+    @media screen and (max-width: $media-width-sm) {
+        font-size: $date-number-size-small;
+        margin: 0;
+    }
+}
+
+.day-container-heading {
+    display: flex;
+    justify-content: space-between;
+
+    @media screen and (max-width: $media-width-sm) {
+        padding: 0;
+    }
+}
+
+.new-reminder-button {
+    font-weight: weight(normal);
+    background: none;
+    font-size: $btn-font-size-normal;
+    border: 0;
+    margin: 0;
+    border-radius: 2rem;
+    width: 2rem;
+    height: 2rem;
+
+    &:hover {
+        cursor: pointer;
+        font-weight: weight(bold);
+    }
+
+    @media screen and (max-width: $media-width-sm) {
+        width: 1rem;
+        height: 1rem;
+        font-size: $btn-font-size-small;
+    }
+}
+

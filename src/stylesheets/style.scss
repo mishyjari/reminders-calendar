@@ -1,0 +1,17 @@
+@import './resets';
+@import './variables';
+@import './calendar';
+@import './day';
+@import './reminder-form';
+@import './reminder-list';
+@import './mixins';
+
+body {
+    overflow-y: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    color: $text-color-primary;
+    background-color: $body-background-color;
+    @media screen and (max-width: $media-width-sm) {
+        font-size: $font-size-small;
+    }
+}

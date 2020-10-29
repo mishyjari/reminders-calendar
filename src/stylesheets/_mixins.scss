@@ -1,0 +1,40 @@
+@mixin flexCenter($direction) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+   // align-content: center;
+}
+
+@mixin columnWidth {
+    width: 13%;
+    border: 1px solid $border-color-light;
+    padding: .5rem;
+    margin: .1rem;
+
+    @media screen and (max-width: $media-width-sm) {
+        padding: 0;
+    }
+}
+
+@mixin dayContainer($isCurrentMonth: true) {
+
+    
+    height: 19%;
+    border-radius: .25em;
+
+    overflow-y: auto;
+    @include columnWidth();
+    @if ( $isCurrentMonth ) {
+        background-color: $day-background-color;
+    }
+    @else {
+        background-color: $day-background-color-disabled;
+    }
+
+    box-shadow: inset 1px 1px 2px $shadow-color-dark;
+
+}
+
+@mixin redBorder {
+    border: 1px solid red;
+}
