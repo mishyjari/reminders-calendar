@@ -16,7 +16,7 @@ A simple calendar view for managing reminders
 #### React application with Redux state management
 - Calendar component renders Title and month toggle buttons
 ##### Calendar
-- Selected Month held in store, defaults to current month. Calendar component accesses the selected month from state, and creates an array of Moment objects for each day within that month. It then prepends and appends that array so that the month is squared off (Sunday-Saturday)
+- Selected month held in store defaults to current month. Calendar component accesses the selected month from state and creates an array of Moment objects for each day within that month. It then prepends and appends that array so that the month is squared off (Sunday-Saturday)
 - Renders a Day component for each element within that array of days
 ##### Day
 - Day component sets className based on whether the day is within the current month and if it is the current day, to allow for easy styling
