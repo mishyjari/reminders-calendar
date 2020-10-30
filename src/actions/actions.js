@@ -15,29 +15,28 @@ export const showPrevMonth = () => ({ type: PREV_MONTH });
 
 // Action creators for Reminders
 export const createReminder = reminder => ({
-        type: CREATE_REMINDER,
-        payload: {
-                ...reminder,
-                id: `reminder-${new Date().getTime()}`
-        }
+  type: CREATE_REMINDER,
+  payload: {
+    ...reminder,
+    id: `reminder-${new Date().getTime()}`,
+  },
 });
 
 export const deleteReminder = id => ({
-        type: DELETE_REMINDER,
-        payload: id
+  type: DELETE_REMINDER,
+  payload: id,
 });
 
 export const selectReminder = id => ({
-        type: SELECT_REMINDER,
-        payload: id
+  type: SELECT_REMINDER,
+  payload: id,
 });
 
 export const updateReminder = data => ({
-        type: UPDATE_REMINDER,
-        payload: data
+  type: UPDATE_REMINDER,
+  payload: data,
 });
 
 export const unselectReminder = () => ({
-        type: UNSELECT_REMINDER
-})
-
+  type: UNSELECT_REMINDER,
+});

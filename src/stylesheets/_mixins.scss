@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: $direction;
     justify-content: center;
-   // align-content: center;
 }
 
 @mixin columnWidth {
@@ -17,16 +16,17 @@
 }
 
 @mixin dayContainer($isCurrentMonth: true) {
+    @include columnWidth();
 
-    
     height: 19%;
     border-radius: .25em;
 
     overflow-y: auto;
-    @include columnWidth();
-    @if ( $isCurrentMonth ) {
+
+    @if ($isCurrentMonth) {
         background-color: $day-background-color;
     }
+
     @else {
         background-color: $day-background-color-disabled;
     }

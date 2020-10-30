@@ -39,6 +39,7 @@
         width: 2em;
         height: 60%;
         border-radius: 2rem;
+
         &:hover {
             box-shadow: inset 2px 2px 4px $shadow-color-dark;
             cursor: pointer;
@@ -59,15 +60,17 @@
     @include columnWidth;
     @include columnWidth;
     @include flexCenter(row);
+
     h4 {
         margin: .5em;
         font-size: 1.5em;
-        @media screen and ( max-width: $media-width-sm ) {
+
+        @media screen and (max-width: $media-width-sm) {
             font-size: .75em;
-            }   
         }
     }
-    
+}
+
 
 .calendar-body {
     height: 100%;
@@ -78,4 +81,3 @@
     justify-content: center;
     align-content: flex-start;
 }
-

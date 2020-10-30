@@ -16,10 +16,12 @@
     }
 
     .close-btn {
-    font-weight: weight(bold);
-    color: $font-color-danger;
-    &:hover {
-        cursor: pointer;
+        font-size: 2rem;
+        color: $font-color-danger;
+
+        &:hover {
+            cursor: pointer;
+            font-weight: weight(bold);
         }
     }
 }
@@ -81,12 +83,14 @@
     width: 100%;
     display: flex;
     flex-direction: row;
+
     button {
         margin-left: 1rem;
         margin-right: 1rem;
         font-size: $input-font-size-normal;
         border-radius: .5rem;
         padding: .5rem;
+
         &:hover {
             cursor: pointer;
             box-shadow: inset 2px 2px 4px $shadow-color-dark;
@@ -96,14 +100,15 @@
             font-size: $input-font-size-small;
         }
     }
+
     .submit {
         flex-grow: 2;
         background-color: $btn-color-primary;
         color: $font-color-dark;
     }
+
     .delete {
         background-color: $font-color-danger;
         color: $font-color-light;
     }
 }
-

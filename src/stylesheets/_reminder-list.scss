@@ -2,6 +2,7 @@
 
 .reminders-list {
     list-style-type: none;
+
     li {
         display: flex;
         flex-direction: row;
@@ -26,14 +27,16 @@
                 cursor: pointer;
             }
         }
+
         .reminder-time {
             font-size: 1rem;
             margin-right: .5rem;
             align-self: center;
         }
 
-        @media screen and ( max-width: $media-width-sm ) {
+        @media screen and (max-width: $media-width-sm) {
             padding-left: .25em;
+
             .reminder-time {
                 min-width: 4em;
                 background-color: $reminder-bg;
@@ -44,10 +47,12 @@
                 justify-content: center;
                 border: 1px solid $border-color-dark;
                 border-radius: .25em;
+
                 &:hover {
                     cursor: pointer;
                 }
             }
+
             .reminder-text {
                 display: none;
             }

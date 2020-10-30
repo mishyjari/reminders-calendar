@@ -11,6 +11,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: $text-color-primary;
     background-color: $body-background-color;
+
     @media screen and (max-width: $media-width-sm) {
         font-size: $font-size-small;
     }
