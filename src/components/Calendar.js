@@ -37,30 +37,32 @@ const CalendarContainer = () => {
   const reminders = useSelector(state => state.reminders.reminders);
   const dispatch = useDispatch();
 
+  // Create an array of moment instances for all days in the selected month
+  // Selected month represented by the moment instance in store's 'calendar'
+  // Prepend and append array as necessary so that calendar begins on Saturday and ends on Sunday
   const getDaysInCalendar = () => {
     const daysInCalendar = [];
-
     // Create a moment instance for each day in current month
     for (
       let dayOfMonth = 1;
       dayOfMonth <= calendar.daysInMonth(); // daysInMonth returns integer count of days
       dayOfMonth++
     ) {
-      daysInCalendar.push(moment(calendar).set('date', dayOfMonth));
+      const newDay = moment(calendar).set('date', dayOfMonth);
+      daysInCalendar.push(newDay);
     }
 
     // Prepend days to the array until the first element day() returns 0 (Sunday)
+    // Note that moment's .day() method returns an integer represending day of the week (0 == Sunday, 6 == Saturday)
     while (daysInCalendar[0].day() > 0) {
-      // 0 == Sunday
-      daysInCalendar.unshift(moment(daysInCalendar[0]).subtract(1, 'day'));
+      const newDay = moment(daysInCalendar[0]).subtract(1, 'day');
+      daysInCalendar.unshift(newDay);
     }
 
     // Append the array until the final element day() returns 7 (Saturday)
     while (daysInCalendar[daysInCalendar.length - 1].day() < 6) {
-      // 6 == Saturday
-      daysInCalendar.push(
-        moment(daysInCalendar[daysInCalendar.length - 1]).add(1, 'day')
-      );
+      const newDay = daysInCalendar[daysInCalendar.length - 1];
+      daysInCalendar.push(moment(newDay).add(1, 'day'));
     }
 
     return daysInCalendar;
@@ -71,9 +73,7 @@ const CalendarContainer = () => {
       {/* Title - Month/Year and Toggle Month Buttons */}
       <div className='calendar-title'>
         <button onClick={() => dispatch(showPrevMonth())}>{`<`}</button>
-        <h2>
-          {calendar.format('MMMM')} {calendar.format('YYYY')}
-        </h2>
+        <h2>{calendar.format('MMMM YYYY')}</h2>
         <button onClick={() => dispatch(showNextMonth())}>{`>`}</button>
       </div>
 

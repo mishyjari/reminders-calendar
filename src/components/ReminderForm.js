@@ -38,7 +38,7 @@ class ReminderForm extends Component {
     }
     // Give focus to the text input
     document
-      .getElementById(`text-${this.state.date.unix()}=${this.state.id}`)
+      .getElementById(`text-${this.state.date.unix()}-${this.state.id}`)
       .focus();
 
     // Scroll screen to show forms rendered beneath screen
@@ -154,12 +154,14 @@ class ReminderForm extends Component {
         <div className='form-row'>
           {/* Date and time inputs */}
           <input
+            required={true}
             type='time'
             className='date-input'
             value={this.state.date.format('HH:mm')}
             onChange={this.handleChangeTime}
           />
           <input
+            required={true}
             type='date'
             className='date-input'
             value={this.state.date.format('YYYY-MM-DD')}
